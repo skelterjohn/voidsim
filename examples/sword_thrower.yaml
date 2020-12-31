@@ -1,0 +1,60 @@
+---
+# Combat at 2020-12-31 15:28:28.1757397 -0500 EST m=+0.004999801 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\sword_thrower.yaml"
+name: Sword Thrower
+quantity: 10
+hp_per: 133
+damage:
+  ranged: 27
+  melee: 27
+combat:
+  AC: 17
+  to_hit: 8
+
+---
+# Combat at 2020-12-31 15:28:28.1757397 -0500 EST m=+0.004999801 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\sword_thrower.yaml"
+name: Sword Thrower
+quantity: 10
+hp_per: 133
+damage:
+  ranged: 27
+  melee: 27
+combat:
+  AC: 17
+  to_hit: 8
+
+---
+name: Sword Thrower
+quantity: 10
+hp_per: 133
+damage:
+  ranged: 27
+  melee: 27
+combat:
+  AC: 17
+  to_hit: 8
+
+---
+name: Sword Thrower
+quantity: 10
+hp_per: 133
+damage:
+  ranged: 27
+  melee: 27
+combat:
+  AC: 17
+  to_hit: 8
+
+---
+name: Sword Thrower
+quantity: 10
+hp_per: 133
+damage:
+  melee: 27
+  ranged: 27
+combat:
+  AC: 17
+  to_hit: 8
+
+
+
+
