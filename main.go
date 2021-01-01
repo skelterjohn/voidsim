@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"flag"
 	"fmt"
 	"os"
@@ -105,6 +106,10 @@ func AskBonus(name string) (Effect, error) {
 	if err != nil {
 		return e, fmt.Errorf("could not ask about resistance: %v", err)
 	}
+	e.Occupied, err = AskYesOrNo("Occupied", false)
+	if err != nil {
+		return e, fmt.Errorf("could not ask about occupied: %v", err)
+	}
 
 	return e, nil
 }
@@ -142,18 +147,24 @@ func Fight(path1, path2 string) error {
 
 	fmt.Println("===Let's fight!===")
 
-	group2Result, err := attackFoo(group1, group2, effect1, effect2)
+	pbp := &bytes.Buffer{}
+
+	group2Result, err := attackFoo(pbp, group1, group2, effect1, effect2)
 	if err != nil {
 		return fmt.Errorf("could not have 1 attack 2 for melee: %v", err)
 	}
-	group1Result, err := attackFoo(group2, group1, effect2, effect1)
+	group1Result, err := attackFoo(pbp, group2, group1, effect2, effect1)
 	if err != nil {
 		return fmt.Errorf("could not have 2 attack 1 for melee: %v", err)
 	}
 	group1 = group1Result
 	group2 = group2Result
 
-	comment := fmt.Sprintf("Combat at %v between %q and %q", time.Now(), path1, path2)
+	fmt.Print(pbp.String())
+
+	lines := strings.Split(pbp.String(), "\n")
+
+	lines = append([]string{fmt.Sprintf("Combat at %v between %q and %q", time.Now(), path1, path2)}, lines...)
 
 	if *noSave {
 		fmt.Println("NOT SAVING COMBAT RESULTS")
@@ -161,10 +172,10 @@ func Fight(path1, path2 string) error {
 
 	}
 
-	if err := group1.Write(path1, comment); err != nil {
+	if err := group1.Write(path1, lines); err != nil {
 		return fmt.Errorf("could not write group back to %s: %v", path1, err)
 	}
-	if err := group2.Write(path2, comment); err != nil {
+	if err := group2.Write(path2, lines); err != nil {
 		return fmt.Errorf("could not write group back to %s: %v", path2, err)
 
 	}

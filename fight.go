@@ -1,43 +1,52 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 )
 
-func MeleeAttack(attacker, defender Group, attackerBonus, defenderBonus Effect) (Group, error) {
+func MeleeAttack(pbp *bytes.Buffer, attacker, defender Group, attackerBonus, defenderBonus Effect) (Group, error) {
+	if attackerBonus.Occupied {
+		fmt.Fprintf(pbp, " %s units are OCCUPIED and cannot attack\n", attacker.Name)
+		return defender, nil
+	}
 	a := attacker.Attributes.Melee.Apply(attackerBonus)
-	defender, err := DoAttack(attacker, a, defender, defenderBonus)
+	defender, err := DoAttack(pbp, attacker, a, defender, defenderBonus)
 	if err != nil {
 		return Group{}, fmt.Errorf("could not make melee attack: %v", err)
 	}
 	return defender, err
 }
 
-func RangedAttack(attacker, defender Group, attackerBonus, defenderBonus Effect) (Group, error) {
+func RangedAttack(pbp *bytes.Buffer, attacker, defender Group, attackerBonus, defenderBonus Effect) (Group, error) {
+	if attackerBonus.Occupied {
+		fmt.Fprintf(pbp, " %s units are OCCUPIED and cannot attack", attacker.Name)
+		return defender, nil
+	}
 	a := attacker.Attributes.Ranged.Apply(attackerBonus)
-	defender, err := DoAttack(attacker, a, defender, defenderBonus)
+	defender, err := DoAttack(pbp, attacker, a, defender, defenderBonus)
 	if err != nil {
 		return Group{}, fmt.Errorf("could not make ranged attack: %v", err)
 	}
 	return defender, err
 }
 
-func DoAttack(attacker Group, attack Attack, defender Group, defenderBonus Effect) (Group, error) {
+func DoAttack(pbp *bytes.Buffer, attacker Group, attack Attack, defender Group, defenderBonus Effect) (Group, error) {
 	numAttackers := attacker.Count()
 	if numAttackers == 0 {
-		fmt.Printf("%s units cannot attack -- they're all dead!\n", attacker.Name)
+		fmt.Fprintf(pbp, "%s units cannot attack -- they're all dead!\n", attacker.Name)
 		return defender, nil
 	}
-	fmt.Printf("%s units attack summary:\n", attacker.Name)
+	fmt.Fprintf(pbp, "%s units attack summary:\n", attacker.Name)
 	if defender.Count() == 0 {
-		fmt.Printf(" %s units were already dead\n", defender.Name)
+		fmt.Fprintf(pbp, " %s units were already dead\n", defender.Name)
 		return defender, nil
 	}
 	defenderUnits := defender.Units.Split()
 	advantage := numAttackers/defender.Count() > 1 // read: at least twice as many attackers as defenders
 
 	if advantage {
-		fmt.Printf(" %s units have ADVANTAGE\n", attacker.Name)
+		fmt.Fprintf(pbp, " %s units have ADVANTAGE\n", attacker.Name)
 	}
 
 	toHit := attack.ToHit
@@ -66,7 +75,7 @@ func DoAttack(attacker Group, attack Attack, defender Group, defenderBonus Effec
 
 		if superCrit { // instant kill of one unit
 			defenderUnits[whichDefender].HP = 0
-			fmt.Print(" supercrit-insta-death")
+			fmt.Fprintf(pbp, " supercrit-insta-death")
 		} else {
 			dice, err := ParseDice(attack.Damage)
 			if err != nil {
@@ -75,16 +84,16 @@ func DoAttack(attacker Group, attack Attack, defender Group, defenderBonus Effec
 			var damage int
 			if crit {
 				damage = dice.Crit()
-				fmt.Printf(" crit=%d", damage)
+				fmt.Fprintf(pbp, " crit=%d", damage)
 			} else if hit {
 				damage = dice.Roll()
-				fmt.Printf(" hit=%d", damage)
+				fmt.Fprintf(pbp, " hit=%d", damage)
 			} else {
-				fmt.Print(" miss")
+				fmt.Fprintf(pbp, " miss")
 			}
 			if damage != 0 && defenderBonus.Resistant {
 				damage /= 2
-				fmt.Printf("/2=%d", damage)
+				fmt.Fprintf(pbp, "/2=%d", damage)
 			}
 			defenderUnits[whichDefender].HP -= damage
 			totalDamage += damage
@@ -96,13 +105,13 @@ func DoAttack(attacker Group, attack Attack, defender Group, defenderBonus Effec
 			whichDefender++
 		}
 	}
-	fmt.Println()
+	fmt.Fprintln(pbp)
 
-	fmt.Printf(" %s units killed: %d\n", defender.Name, killed)
-	fmt.Printf(" %d damage inflicted by %s units\n", totalDamage, attacker.Name)
-	fmt.Printf(" %s status: %d remaining with %d total health\n", defender.Name, len(defenderUnits), Units(defenderUnits).Health())
+	fmt.Fprintf(pbp, " %s units killed: %d\n", defender.Name, killed)
+	fmt.Fprintf(pbp, " %d damage inflicted by %s units\n", totalDamage, attacker.Name)
+	fmt.Fprintf(pbp, " %s status: %d remaining with %d total health\n", defender.Name, len(defenderUnits), Units(defenderUnits).Health())
 	if len(defenderUnits) == 0 {
-		fmt.Printf(" %s units were WIPED OUT\n", defender.Name)
+		fmt.Fprintf(pbp, " %s units were WIPED OUT\n", defender.Name)
 	}
 
 	defender.Units = defenderUnits

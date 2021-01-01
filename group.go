@@ -92,6 +92,7 @@ type Effect struct {
 	AC        int
 	Attack    Attack
 	Resistant bool
+	Occupied  bool
 }
 
 func LoadGroup(path string) (Group, error) {
@@ -110,7 +111,7 @@ func LoadGroup(path string) (Group, error) {
 	return g, nil
 }
 
-func (g Group) Write(path, comment string) error {
+func (g Group) Write(path string, comments []string) error {
 	f, err := os.Open(path)
 	if err != nil {
 		return fmt.Errorf("could not open file for group: %v", err)
@@ -127,9 +128,12 @@ func (g Group) Write(path, comment string) error {
 		return fmt.Errorf("could not encode group: %v", err)
 	}
 	buf := &bytes.Buffer{}
-	fmt.Fprintf(buf, "---\n# %s\n", comment)
-	fmt.Fprintf(buf, "%s\n", gdata)
-	fmt.Fprintf(buf, "%s\n", historicalData)
+	fmt.Fprint(buf, "---\n#")
+	for _, c := range comments {
+		fmt.Fprintf(buf, "# %s\n", c)
+	}
+	fmt.Fprintf(buf, "%s", gdata)
+	fmt.Fprintf(buf, "%s", historicalData)
 
 	fi, err := os.Stat(path)
 	if err != nil {
