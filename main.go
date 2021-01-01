@@ -60,11 +60,16 @@ func AskYesOrNo(prompt string, defaultYes bool) (bool, error) {
 	return false, fmt.Errorf("could not interpret %q as y/n", resp)
 }
 
-func AskNumber(prompt string) (int, error) {
-	resp, err := AskString(prompt)
+func AskNumber(prompt string, defaultValue int) (int, error) {
+	resp, err := AskString(prompt + fmt.Sprintf(" (%d)", defaultValue))
 	if err != nil {
 		return 0, fmt.Errorf("could not AskString: %v", err)
 	}
+
+	if resp == "" {
+		return defaultValue, nil
+	}
+
 	n, err := strconv.ParseInt(resp, 10, 32)
 	if err != nil {
 		return 0, fmt.Errorf("could not interpret %q as a number: %v", resp, err)
@@ -84,7 +89,7 @@ func AskBonus(name string) (Effect, error) {
 	}
 
 	var err error
-	e.Attack.ToHit, err = AskNumber("To hit")
+	e.Attack.ToHit, err = AskNumber("To hit", 0)
 	if err != nil {
 		return e, fmt.Errorf("could not ask about tohit bonus: %v", err)
 	}
@@ -92,9 +97,13 @@ func AskBonus(name string) (Effect, error) {
 	if err != nil {
 		return e, fmt.Errorf("could not ask about damage bonus: %v", err)
 	}
-	e.AC, err = AskNumber("AC")
+	e.AC, err = AskNumber("AC", 0)
 	if err != nil {
 		return e, fmt.Errorf("could not ask about AC bonus: %v", err)
+	}
+	e.Resistant, err = AskYesOrNo("Resistance", false)
+	if err != nil {
+		return e, fmt.Errorf("could not ask about resistance: %v", err)
 	}
 
 	return e, nil

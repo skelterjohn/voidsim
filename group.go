@@ -89,8 +89,9 @@ func (g Group) Count() int {
 }
 
 type Effect struct {
-	AC     int
-	Attack Attack
+	AC        int
+	Attack    Attack
+	Resistant bool
 }
 
 func LoadGroup(path string) (Group, error) {

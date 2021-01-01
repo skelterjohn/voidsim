@@ -36,6 +36,10 @@ func DoAttack(attacker Group, attack Attack, defender Group, defenderBonus Effec
 	defenderUnits := defender.Units.Split()
 	advantage := numAttackers/defender.Count() > 1 // read: at least twice as many attackers as defenders
 
+	if advantage {
+		fmt.Printf(" %s units have ADVANTAGE\n", attacker.Name)
+	}
+
 	toHit := attack.ToHit
 	AC := defender.Attributes.AC + defenderBonus.AC
 
@@ -77,6 +81,10 @@ func DoAttack(attacker Group, attack Attack, defender Group, defenderBonus Effec
 				fmt.Printf(" hit=%d", damage)
 			} else {
 				fmt.Print(" miss")
+			}
+			if damage != 0 && defenderBonus.Resistant {
+				damage /= 2
+				fmt.Printf("/2=%d", damage)
 			}
 			defenderUnits[whichDefender].HP -= damage
 			totalDamage += damage
