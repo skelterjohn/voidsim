@@ -1,59 +1,247 @@
 ---
-# Combat at 2020-12-31 15:28:28.1757397 -0500 EST m=+0.004999801 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\sword_thrower.yaml"
+# Combat at 2020-12-31 21:22:07.1988968 -0500 EST m=+0.732405801 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\archers.yaml"
 name: Sword Thrower
-quantity: 10
-hp_per: 133
-damage:
-  ranged: 27
-  melee: 27
-combat:
+units: []
+attributes:
+  max_HP: 133
   AC: 17
-  to_hit: 8
+  ranged:
+    to_hit: 8
+    damage: 5d6
+  melee:
+    to_hit: 8
+    damage: 7d6
 
 ---
-# Combat at 2020-12-31 15:28:28.1757397 -0500 EST m=+0.004999801 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\sword_thrower.yaml"
+# Combat at 2020-12-31 21:21:43.9811262 -0500 EST m=+2.275197701 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\archers.yaml"
 name: Sword Thrower
-quantity: 10
-hp_per: 133
-damage:
-  ranged: 27
-  melee: 27
-combat:
+units:
+- count: 1
+  HP: 4
+- count: 1
+  HP: 17
+- count: 1
+  HP: 12
+- count: 1
+  HP: 2
+attributes:
+  max_HP: 133
   AC: 17
-  to_hit: 8
+  ranged:
+    to_hit: 8
+    damage: 5d6
+  melee:
+    to_hit: 8
+    damage: 7d6
+
+---
+# Combat at 2020-12-31 21:18:49.3692679 -0500 EST m=+0.634655901 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\archers.yaml"
+name: Sword Thrower
+units:
+- count: 1
+  HP: 5
+- count: 1
+  HP: 30
+- count: 1
+  HP: 17
+- count: 1
+  HP: 7
+- count: 1
+  HP: 11
+- count: 1
+  HP: 20
+- count: 1
+  HP: 18
+- count: 1
+  HP: 22
+- count: 1
+  HP: 30
+- count: 1
+  HP: 30
+attributes:
+  max_HP: 133
+  AC: 17
+  ranged:
+    to_hit: 8
+    damage: 5d6
+  melee:
+    to_hit: 8
+    damage: 7d6
+
+---
+# Combat at 2020-12-31 21:17:16.4797113 -0500 EST m=+0.569242501 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\archers.yaml"
+name: Sword Thrower
+units:
+- count: 1
+  HP: 5
+- count: 1
+  HP: 30
+- count: 1
+  HP: 30
+- count: 1
+  HP: 7
+- count: 1
+  HP: 11
+- count: 1
+  HP: 20
+- count: 1
+  HP: 18
+- count: 1
+  HP: 22
+- count: 1
+  HP: 30
+- count: 1
+  HP: 30
+attributes:
+  max_HP: 133
+  AC: 17
+  ranged:
+    to_hit: 8
+    damage: 5d6
+  melee:
+    to_hit: 8
+    damage: 7d6
+
+---
+# Combat at 2020-12-31 21:16:35.5567958 -0500 EST m=+0.667952001 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\archers.yaml"
+name: Sword Thrower
+units:
+- count: 1
+  HP: 15
+- count: 1
+  HP: 30
+- count: 1
+  HP: 30
+- count: 1
+  HP: 17
+- count: 1
+  HP: 25
+- count: 1
+  HP: 30
+- count: 1
+  HP: 18
+- count: 1
+  HP: 22
+- count: 1
+  HP: 30
+- count: 1
+  HP: 30
+attributes:
+  max_HP: 133
+  AC: 17
+  ranged:
+    to_hit: 8
+    damage: 5d6
+  melee:
+    to_hit: 8
+    damage: 7d6
 
 ---
 name: Sword Thrower
-quantity: 10
-hp_per: 133
-damage:
-  ranged: 27
-  melee: 27
-combat:
+units:
+- count: 10
+  HP: 30
+attributes:
+  max_HP: 133
   AC: 17
-  to_hit: 8
+  melee:
+    to_hit: 8
+    damage: 7d6
+  ranged:
+    to_hit: 8
+    damage: 5d6
 
----
-name: Sword Thrower
-quantity: 10
-hp_per: 133
-damage:
-  ranged: 27
-  melee: 27
-combat:
-  AC: 17
-  to_hit: 8
 
----
-name: Sword Thrower
-quantity: 10
-hp_per: 133
-damage:
-  melee: 27
-  ranged: 27
-combat:
-  AC: 17
-  to_hit: 8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -79,15 +79,33 @@ func Fight(path1, path2 string) error {
 		return fmt.Errorf("could not load group in %s: %v", path2, err)
 	}
 
-	debugPrint("group1", group1)
-	debugPrint("group2", group2)
+	melee, err := AskYesOrNo("Is this melee?", true)
+	if err != nil {
+		return fmt.Errorf("could not determine if this was melee: %v", err)
+	}
+
+	attackFoo := MeleeAttack
+	if !melee {
+		attackFoo = RangedAttack
+	}
+
+	group2Result, err := attackFoo(group1, group2, Effect{}, Effect{})
+	if err != nil {
+		return fmt.Errorf("could not have 1 attack 2 for melee: %v", err)
+	}
+	group1Result, err := attackFoo(group2, group1, Effect{}, Effect{})
+	if err != nil {
+		return fmt.Errorf("could not have 2 attack 1 for melee: %v", err)
+	}
+	group1 = group1Result
+	group2 = group2Result
 
 	comment := fmt.Sprintf("Combat at %v between %q and %q", time.Now(), path1, path2)
 
 	if err := group1.Write(path1, comment); err != nil {
 		return fmt.Errorf("could not write group back to %s: %v", path1, err)
 	}
-	if err := group2.Write(path1, comment); err != nil {
+	if err := group2.Write(path2, comment); err != nil {
 		return fmt.Errorf("could not write group back to %s: %v", path2, err)
 	}
 
