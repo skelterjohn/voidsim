@@ -1,23 +1,15 @@
 ---
-# Combat at 2020-12-31 21:22:07.1988968 -0500 EST m=+0.732405801 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\archers.yaml"
+# Combat at 2021-01-01 10:27:38.3971264 -0500 EST m=+0.378735801 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\archers.yaml"
 name: Archer
 units:
 - count: 1
-  HP: 9
+  HP: 5
 - count: 1
   HP: 30
 - count: 1
-  HP: 12
-- count: 1
-  HP: 6
-- count: 1
   HP: 30
 - count: 1
-  HP: 13
-- count: 1
-  HP: 30
-- count: 1
-  HP: 14
+  HP: 11
 attributes:
   max_HP: 133
   AC: 17
@@ -29,29 +21,27 @@ attributes:
     damage: 3d6
 
 ---
-# Combat at 2020-12-31 21:21:43.9811262 -0500 EST m=+2.275197701 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\archers.yaml"
+# Combat at 2021-01-01 10:26:25.392909 -0500 EST m=+0.894997901 between ".\\examples\\sword_thrower.yaml" and ".\\examples\\archers.yaml"
 name: Archer
 units:
 - count: 1
-  HP: 16
-- count: 1
-  HP: 9
+  HP: 5
 - count: 1
   HP: 30
 - count: 1
-  HP: 17
+  HP: 5
 - count: 1
-  HP: 12
-- count: 1
-  HP: 6
+  HP: 4
 - count: 1
   HP: 30
 - count: 1
-  HP: 13
+  HP: 7
+- count: 1
+  HP: 11
+- count: 1
+  HP: 2
 - count: 1
   HP: 30
-- count: 1
-  HP: 14
 attributes:
   max_HP: 133
   AC: 17
@@ -61,7 +51,6 @@ attributes:
   melee:
     to_hit: 8
     damage: 3d6
-
 
 ---
 name: Archer
@@ -77,6 +66,26 @@ attributes:
   ranged:
     to_hit: 15
     damage: 7d6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

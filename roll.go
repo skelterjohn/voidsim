@@ -21,7 +21,7 @@ func AttackRoll(toHit, AC int) (bool, bool) {
 func AdvantageAttackRoll(toHit, AC int) (bool, bool, bool) {
 	hit1, crit1 := AttackRoll(toHit, AC)
 	hit2, crit2 := AttackRoll(toHit, AC)
-	return hit1 || hit2, crit1 || crit2, crit2 && crit2
+	return hit1 || hit2, crit1 || crit2, crit1 && crit2
 }
 
 type Die struct {
